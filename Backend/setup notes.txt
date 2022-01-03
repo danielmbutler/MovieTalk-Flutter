@@ -8,6 +8,7 @@ create user and define dynamodb permissions
 
 
 flutter 
+design login screen, chats screen, chat detail screen, movie detail screen
 create aws project (aws cli)
 add auth and datastore
 seed datastore (no need for dynamodb backend)

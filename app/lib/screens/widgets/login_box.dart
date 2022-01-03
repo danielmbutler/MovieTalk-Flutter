@@ -14,6 +14,7 @@ class _LoginBoxState extends State<LoginBox> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset('assets/images/movie_reel.png', height: 80, width: 80),
         const Text(

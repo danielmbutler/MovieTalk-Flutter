@@ -1,4 +1,5 @@
 import 'package:app/screens/widgets/login_box.dart';
+import 'package:app/screens/widgets/server_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,14 @@ class _LoginScreen extends State<LoginScreen> {
         ),
       ),
       body: SafeArea(
-        child: Align(
-          alignment: Alignment.center,
-          child: LoginBox(),
-        ),
-      ),
+          child: Column(
+        children: [
+          ServerStatus("online", true),
+          Expanded(
+            child: LoginBox(),
+          ),
+        ],
+      )),
     );
   }
 }
