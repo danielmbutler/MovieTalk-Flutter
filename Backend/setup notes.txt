@@ -1,0 +1,14 @@
+create db
+
+node js script
+npm install aws-sdk
+npm install request
+create user and define dynamodb permissions
+
+
+
+flutter 
+create aws project (aws cli)
+add auth and datastore
+seed datastore (no need for dynamodb backend)
+link with dynamodb and flutter project
