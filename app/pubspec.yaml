@@ -51,6 +51,16 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: Notable
+      fonts:
+        - asset: assets/fonts/notable_regular.ttf
+          style: normal
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/open_sans_regular.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
