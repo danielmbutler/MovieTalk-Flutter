@@ -1,4 +1,4 @@
-import 'package:app/utils/view_utils.dart';
+import 'package:app/screens/chat_list/chat_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,6 +51,10 @@ class _LoginBoxState extends State<LoginBox> {
   }
 
   void login(){
-    ViewUtils.showSnackBar(context, "Logging In .....");
+    Navigator.push(context, MaterialPageRoute<void>(
+      builder: (BuildContext context) {
+        return ChatListScreen();
+      },
+    ));
   }
 }
