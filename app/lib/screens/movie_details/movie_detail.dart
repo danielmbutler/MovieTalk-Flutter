@@ -19,7 +19,23 @@ class MovieDetail extends StatelessWidget {
             image: NetworkImage(movie.img),
           ),
         ),
-      )
+        child: Text(
+          "Rating : " + movie.rating.toString(),
+          textAlign: TextAlign.end,
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20
+          ),
+        ),
+      ),
+      Padding(padding: EdgeInsets.all(12), 
+          child: Text(
+            movie.overview,
+            style: TextStyle(color: Colors.grey[700]),
+          )
+        ),
+      
     ], null);
   }
 }
