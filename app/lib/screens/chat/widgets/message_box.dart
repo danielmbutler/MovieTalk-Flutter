@@ -1,3 +1,4 @@
+import 'package:app/screens/chat/widgets/message.dart';
 import 'package:app/utils/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 var message = "";
 
 class MessageBox extends StatefulWidget {
-  MessageBox();
+  final Function sendMessage;
+  final Function scrollToBottom;
+  MessageBox(this.sendMessage, this.scrollToBottom);
 
   @override
   _MessageBox createState() => _MessageBox();
@@ -26,6 +29,16 @@ class _MessageBox extends State<MessageBox> {
     controller.selection = TextSelection.fromPosition(
         TextPosition(offset: controller.text.length));
 
+    void sendMessage() {
+      if(message.isEmpty){
+        ViewUtils.showSnackBar(context, "message is empty");
+        return;
+      }
+      widget.sendMessage(Message.createMessage(message));
+      widget.scrollToBottom();
+      controller.clear();
+    }
+
     return Container(
         margin: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
         child: TextField(
@@ -33,6 +46,7 @@ class _MessageBox extends State<MessageBox> {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             controller: controller,
+            onTap: () => {widget.scrollToBottom()},
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0),
@@ -51,10 +65,5 @@ class _MessageBox extends State<MessageBox> {
     );
   }
 
-  void sendMessage() {
-    if(message.isEmpty){
-      ViewUtils.showSnackBar(context, "message is empty");
-      return;
-    }
-  }
+
 }

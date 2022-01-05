@@ -1,5 +1,7 @@
 import 'package:app/screens/login/login_screen.dart';
+import 'package:app/viewmodels/message_list_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,8 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MovieTalk',
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        fontFamily: 'OpenSans'
+          primarySwatch: Colors.red,
+          fontFamily: 'OpenSans'
       ),
       home: LoginScreen(title: 'MovieTalk'),
     );

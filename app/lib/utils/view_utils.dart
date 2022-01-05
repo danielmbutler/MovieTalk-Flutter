@@ -9,4 +9,8 @@ class ViewUtils {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+  static String getCurrentTime(){
+    return DateTime.now().hour.toString() + ":" + DateTime.now().minute.toString();
+  }
 }
