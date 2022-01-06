@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@aws-amplify/datastore": "^3.7.3",
     "aws-sdk": "^2.1048.0",
+    "isomorphic-fetch": "^3.0.0",
     "request": "^2.88.2"
   }
 }

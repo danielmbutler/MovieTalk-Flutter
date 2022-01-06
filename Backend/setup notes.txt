@@ -1,15 +1,15 @@
-create db
+seed datastore (each movie needs an Id)
+setup flutter project with amplify auth
+setup table for chat messages
+create amplify class
+retrieve chatrooms and movie details
+send message
+retrieve messages
+observe for new messages
 
-node js script
-npm install aws-sdk
-npm install request
-create user and define dynamodb permissions
 
-
-
-flutter 
-design login screen, chats screen, chat detail screen, movie detail screen
-create aws project (aws cli)
-add auth and datastore
-seed datastore (no need for dynamodb backend)
-link with dynamodb and flutter project
+amplify
+creat app
+setup models
+seed movies
+enable auth
