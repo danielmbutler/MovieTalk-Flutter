@@ -1,17 +1,19 @@
+import 'package:app/models/Message.dart';
 import 'package:app/models/movie.dart';
 import 'package:app/screens/chat/chat_screen.dart';
 import 'package:app/utils/constants.dart';
-import 'package:app/viewmodels/movie_list_viewmodel.dart';
+import 'package:app/viewmodels/message_list_viewmodel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ChatList extends StatefulWidget {
   final List<Movie> movies;
   final String currentUserId;
+  final String username;
+  final MessageListViewModel messageListViewModel;
 
-  ChatList(this.movies, this.currentUserId);
+  ChatList(this.movies, this.currentUserId, this.messageListViewModel, this.username);
 
   @override
   _ChatListState createState() => _ChatListState(this.movies);
@@ -43,17 +45,28 @@ class _ChatListState extends State<ChatList> {
                 width: 50,
               ),
               title: Text(movie.title!),
-              subtitle: Text("Latest Message"),
+              subtitle: Text(getLatestMessage(movie)),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute<void>(
-                  builder: (BuildContext context) {
-                    return ChatScreen(movie, widget.currentUserId);
-                  },
-                ));
+                    navigateToChatScreen(movie);
               },
             ),
           );
         });
+  }
+
+  String getLatestMessage(Movie movie) {
+     return movie.latestMessage!.isNotEmpty ? "Latest Message: " + movie.latestMessage! : "no messages";
+  }
+
+  Future<void> navigateToChatScreen(Movie movie) async {
+    List<Message>? messages = await widget.messageListViewModel.getMessages(movie.id);
+    Function sendMessage = widget.messageListViewModel.addMessage;
+
+    Navigator.push(context, MaterialPageRoute<void>(
+      builder: (BuildContext context) {
+        return  ChatScreen(movie, widget.currentUserId, messages!, sendMessage, widget.username);
+      },
+    ));
   }
 
 }

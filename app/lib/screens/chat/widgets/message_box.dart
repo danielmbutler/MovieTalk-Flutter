@@ -1,5 +1,5 @@
 import 'package:amplify_flutter/amplify.dart';
-import 'package:app/screens/chat/widgets/message.dart';
+import 'package:app/screens/chat/widgets/message_bubble.dart';
 import 'package:app/utils/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class _MessageBox extends State<MessageBox> {
         ViewUtils.showSnackBar(context, "message is empty");
         return;
       }
-      widget.sendMessage(MessageWidget.createMessage(message));
+      widget.sendMessage(message);
       widget.scrollToBottom();
       controller.clear();
     }

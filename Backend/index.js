@@ -6,7 +6,7 @@
 
     // api params
     const movieApiParams = {
-        url: 'https://api.themoviedb.org/3/movie/popular?api_key=6ae9a511f0dda8249130d7693f1539d4&language=en-US&page=1',
+        url: 'apikey',
         headers: { 'Content-Type': 'application/json' },
        
     };
@@ -31,7 +31,7 @@
             for (var i = 0; i < movieList.length; i++) {
                 var requestBody =  JSON.stringify({ query: `
                 mutation MyMutation {
-                    createMovie(input: {img: "` + movieList[i].poster_path + `", latestMessage: "", latestMessageTime: "", overview: "` +movieList[i].overview +`", rating: "`+ String(movieList[i].vote_average) + `", title: "` + movieList[i].original_title + `"}) {
+                    createMovieModel(input: {img: "` + movieList[i].poster_path + `", latestMessage: "", latestMessageTime: "", overview: "` +movieList[i].overview +`", rating: "`+ String(movieList[i].vote_average) + `", title: "` + movieList[i].original_title + `"}) {
                     img
                     latestMessage
                     latestMessageTime
@@ -42,9 +42,9 @@
                 }` 
                 })
                 console.log(requestBody)
-                  fetch('https://2mi6df6yizegzkcjefy5jdhbim.appsync-api.eu-west-2.amazonaws.com/graphql', {
+                  fetch('', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'x-api-key' : 'da2-es2iwtuezzewjmttq5y2aqay2y' },
+                        headers: { 'Content-Type': 'application/json', 'x-api-key' : '' },
                         body: requestBody,
                         })
                         .then(res => res.json())

@@ -4,6 +4,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:app/screens/login/login_screen.dart';
+import 'package:app/viewmodels/message_list_viewmodel.dart';
 import 'package:app/viewmodels/movie_list_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +63,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (_) => MovieListViewModel(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => MessageListViewModel(),
+        )
       ], child:LoginScreen()
     ));
   }

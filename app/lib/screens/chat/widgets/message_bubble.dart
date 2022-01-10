@@ -2,8 +2,8 @@ import 'package:app/utils/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MessageWidget extends StatelessWidget {
-  MessageWidget(
+class MessageBubble extends StatelessWidget {
+  MessageBubble(
       {required this.text, required this.isCurrentUser, required this.time, required this.username});
 
   final String text;
@@ -53,8 +53,5 @@ class MessageWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-  static MessageWidget createMessage(String message ){
-    return MessageWidget(text: message, isCurrentUser: true, time: ViewUtils.getCurrentTime(), username: "username");
   }
 }

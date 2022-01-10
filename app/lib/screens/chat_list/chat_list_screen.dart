@@ -5,6 +5,7 @@ import 'package:app/screens/chat_list/widgets/chat_list.dart';
 import 'package:app/screens/login/login_screen.dart';
 import 'package:app/screens/shared/custom_scaffold.dart';
 import 'package:app/utils/view_utils.dart';
+import 'package:app/viewmodels/message_list_viewmodel.dart';
 import 'package:app/viewmodels/movie_list_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,11 @@ import 'package:provider/provider.dart';
 class ChatListScreen extends StatefulWidget {
 
   final String currentUserId;
+  final String username;
   final List<Movie> movies;
+  final MessageListViewModel messageListViewModel;
 
-  ChatListScreen(this.currentUserId, this.movies);
+  ChatListScreen(this.currentUserId, this.movies, this.messageListViewModel, this.username);
 
   @override
   _ChatListScreenState createState() => _ChatListScreenState();
@@ -31,7 +34,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
           const Padding(
             padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
           ),
-          Expanded(child: ChatList(widget.movies, widget.currentUserId)),
+          Expanded(child: ChatList(widget.movies, widget.currentUserId, widget.messageListViewModel, widget.username)),
         ],
         logout(context), false);
   }

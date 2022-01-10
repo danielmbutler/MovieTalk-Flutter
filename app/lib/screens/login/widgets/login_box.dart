@@ -4,6 +4,7 @@ import 'package:app/models/movie.dart';
 import 'package:app/screens/chat_list/chat_list_screen.dart';
 import 'package:app/screens/register/register_screen.dart';
 import 'package:app/utils/view_utils.dart';
+import 'package:app/viewmodels/message_list_viewmodel.dart';
 import 'package:app/viewmodels/movie_list_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _LoginBoxState extends State<LoginBox> {
   Future<void> checkCurrentUser() async {
     try {
       AuthUser awsUser = await Amplify.Auth.getCurrentUser();
-      navigationToChatScreen(awsUser.userId);
+      navigationToChatScreen(awsUser.userId, awsUser.username);
     } on AuthException catch (e) {
       debugPrint("no user found");
     }
@@ -102,16 +103,20 @@ class _LoginBoxState extends State<LoginBox> {
     }
   }
 
-  Future<void> navigationToChatScreen(String userId) async {
-    var vm = Provider.of<MovieListViewModel>(context, listen: false);
+  Future<void> navigationToChatScreen(String userId, String username) async {
+    var movieViewModel = Provider.of<MovieListViewModel>(context, listen: false);
+    var messageViewModel = Provider.of<MessageListViewModel>(context, listen: false);
 
-    List<Movie>? movies = await vm.getMovies();
+    List<Movie>? movies = await movieViewModel.getMovies();
 
     debugPrint(movies.toString());
     if (movies != null) {
       Navigator.push(context, MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return ChatListScreen(userId, movies);
+          return  ChangeNotifierProvider(
+            create: (_) => MessageListViewModel(),
+            child: ChatListScreen(userId, movies, messageViewModel, username),
+          );
         },
       ));
     }
