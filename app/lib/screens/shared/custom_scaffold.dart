@@ -5,8 +5,9 @@ class CustomScaffold extends StatelessWidget {
   final String title;
   final List<Widget> widgets;
   final Widget? action;
+  final bool backButton;
 
-  CustomScaffold(this.title, this.widgets, this.action);
+  CustomScaffold(this.title, this.widgets, this.action, this.backButton);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class CustomScaffold extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         actions: action != null ? <Widget>[action!] : <Widget>[],
+        automaticallyImplyLeading: backButton,
       ),
       body: SafeArea(
           child: Column(

@@ -1,13 +1,26 @@
-import 'package:app/screens/chat/widgets/message.dart';
-import 'package:app/test/test_data.dart';
+
+import 'package:amplify_flutter/amplify.dart';
+import 'package:app/models/Message.dart';
+import 'package:app/utils/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 
 class MessageListViewModel with ChangeNotifier{
+  
+  List<Message> messages = List.generate(1, (index) => Message(), growable: true);
 
-  List<Message> messages = TestData.getMessages();
+ Future<List<Message>?> getMessages() async {
+    try {
+      return await Amplify.DataStore.query(Message.classType);
+   } on Exception catch (e) {
+     return null;
+   }
+ }
 
-  void addMessage(Message message){
-    messages.add(message);
+
+
+  Future<void> addMessage(String message, String fromId, String movieId) async {
+    Message messageToSave = Message(message: message, fromId: fromId, movieId: movieId, timestamp: ViewUtils.getCurrentTime());
+    await Amplify.DataStore.save(messageToSave);
     notifyListeners();
   }
 }

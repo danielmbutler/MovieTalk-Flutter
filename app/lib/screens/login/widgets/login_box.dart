@@ -1,6 +1,13 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:app/models/movie.dart';
 import 'package:app/screens/chat_list/chat_list_screen.dart';
+import 'package:app/screens/register/register_screen.dart';
+import 'package:app/utils/view_utils.dart';
+import 'package:app/viewmodels/movie_list_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginBox extends StatefulWidget {
   LoginBox();
@@ -10,8 +17,23 @@ class LoginBox extends StatefulWidget {
 }
 
 class _LoginBoxState extends State<LoginBox> {
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController confirmationCodeController = TextEditingController();
+
+  Future<void> checkCurrentUser() async {
+    try {
+      AuthUser awsUser = await Amplify.Auth.getCurrentUser();
+      navigationToChatScreen(awsUser.userId);
+    } on AuthException catch (e) {
+      debugPrint("no user found");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    checkCurrentUser();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,38 +44,84 @@ class _LoginBoxState extends State<LoginBox> {
           style: TextStyle(
               color: Colors.black, fontSize: 30, fontFamily: 'Notable'),
         ),
-        const Padding(
-            padding: EdgeInsets.all(20),
+        Padding(
+            padding: const EdgeInsets.all(20),
             child: TextField(
-              decoration: InputDecoration(
+              controller: emailController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Username',
               ),
             )),
-        const Padding(
-          padding: EdgeInsets.only(right: 20, left: 20, bottom: 20),
+        Padding(
+          padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
           child: TextField(
               obscureText: true,
-              decoration: InputDecoration(
+              controller: passwordController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password',
               )),
         ),
         TextButton(
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red)),
             onPressed: login,
             child: const Text(
               "Login",
               style: TextStyle(color: Colors.white),
-            ) )
+            )),
+        TextButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.grey)),
+            onPressed: register,
+            child: const Text(
+              "Register",
+              style: TextStyle(color: Colors.white),
+            ))
       ],
     );
   }
 
-  void login(){
+  Future<void> login() async {
+    ViewUtils.showSnackBar(context, "Logging In");
+
+    try {
+      SignInResult res = await Amplify.Auth.signIn(
+        username: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      setState(() {
+        if (res.isSignedIn) {
+          checkCurrentUser();
+        }
+      });
+    } on AuthException catch (e) {
+      ViewUtils.showSnackBar(context, e.message);
+    }
+  }
+
+  Future<void> navigationToChatScreen(String userId) async {
+    var vm = Provider.of<MovieListViewModel>(context, listen: false);
+
+    List<Movie>? movies = await vm.getMovies();
+
+    debugPrint(movies.toString());
+    if (movies != null) {
+      Navigator.push(context, MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return ChatListScreen(userId, movies);
+        },
+      ));
+    }
+    ViewUtils.showSnackBar(context, "server error");
+  }
+
+  void register() {
     Navigator.push(context, MaterialPageRoute<void>(
       builder: (BuildContext context) {
-        return ChatListScreen();
+        return RegisterScreen();
       },
     ));
   }

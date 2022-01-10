@@ -1,6 +1,5 @@
 import 'package:app/models/movie.dart';
-import 'package:app/screens/chat/widgets/message.dart';
-import 'package:app/screens/chat/widgets/message_box.dart';
+
 import 'package:app/screens/chat/widgets/message_list.dart';
 import 'package:app/screens/movie_details/movie_detail.dart';
 import 'package:app/screens/shared/custom_scaffold.dart';
@@ -11,17 +10,18 @@ import 'package:provider/provider.dart';
 
 class ChatScreen extends StatelessWidget {
   final Movie movie;
+  final String currentUserId;
 
-  ChatScreen(this.movie);
+  ChatScreen(this.movie, this.currentUserId);
 
 
   @override
   Widget build(BuildContext context) {
 
     return CustomScaffold(
-        movie.title, <Widget>[Expanded(child:  ChangeNotifierProvider(
+        movie.title!, <Widget>[Expanded(child:  ChangeNotifierProvider(
         create: (_) => MessageListViewModel(),
-    child:MessageList()))], navigateToMovieDetails(context));
+    child:MessageList(currentUserId)))], navigateToMovieDetails(context), true);
   }
 
   Widget navigateToMovieDetails(BuildContext context) {

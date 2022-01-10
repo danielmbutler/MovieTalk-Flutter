@@ -1,5 +1,6 @@
 import 'package:app/models/movie.dart';
 import 'package:app/screens/shared/custom_scaffold.dart';
+import 'package:app/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,14 +10,14 @@ class MovieDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(movie.title, <Widget>[
+    return CustomScaffold(movie.title!, <Widget>[
       Container(
         width: MediaQuery.of(context).size.width,
         height: 400,
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: NetworkImage(movie.img),
+            image: NetworkImage(Constants.imgUrl + movie.img!),
           ),
         ),
         child: Text(
@@ -29,13 +30,13 @@ class MovieDetail extends StatelessWidget {
           ),
         ),
       ),
-      Padding(padding: EdgeInsets.all(12), 
+      Padding(padding: EdgeInsets.all(12),
           child: Text(
-            movie.overview,
+            movie.overview!,
             style: TextStyle(color: Colors.grey[700]),
           )
         ),
-      
-    ], null);
+
+    ], null, true);
   }
 }

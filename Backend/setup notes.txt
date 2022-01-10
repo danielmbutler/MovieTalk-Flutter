@@ -11,5 +11,8 @@ observe for new messages
 amplify
 creat app
 setup models
+update amplify
 seed movies
+
+add amplify to flutter (requires perms)
 enable auth

@@ -37,6 +37,11 @@ dependencies:
   cached_network_image: ^3.2.0
   path_provider: ^2.0.8
   provider: ^6.0.1
+  amplify_flutter: ^0.2.0
+  amplify_auth_cognito: ^0.2.0
+  amplify_analytics_pinpoint: ^0.2.0
+  amplify_datastore: ^0.2.0
+  amplify_api: ^0.2.0
 
 dev_dependencies:
   flutter_test:
