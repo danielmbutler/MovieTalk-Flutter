@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:app/models/movie.dart';
 import 'package:app/screens/chat_list/widgets/chat_list.dart';
@@ -15,7 +16,7 @@ class ChatListScreen extends StatefulWidget {
 
   final String currentUserId;
   final String username;
-  final List<Movie> movies;
+  final Stream<QuerySnapshot<Movie>> movies;
   final MessageListViewModel messageListViewModel;
 
   ChatListScreen(this.currentUserId, this.movies, this.messageListViewModel, this.username);

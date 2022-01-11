@@ -1,4 +1,5 @@
 
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:app/models/Message.dart';
 import 'package:app/screens/chat/widgets/message_bubble.dart';
 import 'package:app/screens/chat/widgets/message_box.dart';
@@ -10,10 +11,11 @@ class MessageList extends StatefulWidget {
   final String movieId;
   final String username;
   final String currentUserId;
-  final List<Message> messages;
+  final Stream<QuerySnapshot<Message>> messageQuery;
   final Function sendMessage;
+  var messages = [];
 
-  MessageList(this.currentUserId, this.messages, this.sendMessage, this.movieId, this.username);
+  MessageList(this.currentUserId, this.messageQuery, this.sendMessage, this.movieId, this.username);
 
   @override
   _MessageListState createState() => _MessageListState();
@@ -36,6 +38,17 @@ class _MessageListState extends State<MessageList> {
   Widget build(BuildContext context) {
     // scroll to bottom once list view is built
     WidgetsBinding.instance?.addPostFrameCallback((_) => _scrollToBottom());
+
+
+    widget.messageQuery.listen((event) {
+      debugPrint("items" + event.items.toString());
+      setState(() {
+        widget.messages = event.items;
+      });
+    });
+
+
+
     return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

@@ -1,3 +1,4 @@
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:app/models/Message.dart';
 import 'package:app/models/movie.dart';
 import 'package:app/screens/chat/chat_screen.dart';
@@ -8,33 +9,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatList extends StatefulWidget {
-  final List<Movie> movies;
+  final Stream<QuerySnapshot<Movie>> movieQuery;
   final String currentUserId;
   final String username;
   final MessageListViewModel messageListViewModel;
 
-  ChatList(this.movies, this.currentUserId, this.messageListViewModel, this.username);
+  var movies = [];
+
+  ChatList(this.movieQuery, this.currentUserId, this.messageListViewModel, this.username);
 
   @override
-  _ChatListState createState() => _ChatListState(this.movies);
+  _ChatListState createState() => _ChatListState();
 }
 
 class _ChatListState extends State<ChatList> {
 
-  final List<Movie> movies;
-
-  _ChatListState(this.movies);
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
+    widget.movieQuery.listen((event) {
+      debugPrint("items" + event.items.toString());
+      setState(() {
+        widget.movies = event.items;
+      });
+    });
+
+
     return ListView.builder(
-        itemCount: movies.length,
+        itemCount: widget.movies.length,
         itemBuilder: (context, index) {
-          var movie = movies[index];
+          var movie = widget.movies[index];
           var image = movie.img;
 
           return Card(
@@ -59,12 +63,12 @@ class _ChatListState extends State<ChatList> {
   }
 
   Future<void> navigateToChatScreen(Movie movie) async {
-    List<Message>? messages = await widget.messageListViewModel.getMessages(movie.id);
+    Stream<QuerySnapshot<Message>> messages = widget.messageListViewModel.observeMessages(movie.id);
     Function sendMessage = widget.messageListViewModel.addMessage;
 
     Navigator.push(context, MaterialPageRoute<void>(
       builder: (BuildContext context) {
-        return  ChatScreen(movie, widget.currentUserId, messages!, sendMessage, widget.username);
+        return  ChatScreen(movie, widget.currentUserId, messages, sendMessage, widget.username);
       },
     ));
   }

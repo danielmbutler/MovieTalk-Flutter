@@ -1,3 +1,4 @@
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:app/models/Message.dart';
 import 'package:app/models/movie.dart';
 
@@ -12,7 +13,7 @@ class ChatScreen extends StatelessWidget {
   final Movie movie;
   final String currentUserId;
   final String username;
-  final List<Message> messages;
+  final Stream<QuerySnapshot<Message>> messages;
   final Function sendMessage;
 
   ChatScreen(this.movie, this.currentUserId, this.messages, this.sendMessage, this.username);
@@ -22,6 +23,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
 
     return CustomScaffold(
         movie.title!, <Widget>[Expanded(

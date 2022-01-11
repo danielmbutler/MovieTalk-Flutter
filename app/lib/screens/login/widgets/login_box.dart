@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:app/models/movie.dart';
 import 'package:app/screens/chat_list/chat_list_screen.dart';
@@ -107,9 +108,8 @@ class _LoginBoxState extends State<LoginBox> {
     var movieViewModel = Provider.of<MovieListViewModel>(context, listen: false);
     var messageViewModel = Provider.of<MessageListViewModel>(context, listen: false);
 
-    List<Movie>? movies = await movieViewModel.getMovies();
+    Stream<QuerySnapshot<Movie>> movies = movieViewModel.observeMovies();
 
-    debugPrint(movies.toString());
     if (movies != null) {
       Navigator.push(context, MaterialPageRoute<void>(
         builder: (BuildContext context) {
