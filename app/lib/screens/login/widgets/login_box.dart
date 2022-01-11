@@ -36,7 +36,7 @@ class _LoginBoxState extends State<LoginBox> {
   Widget build(BuildContext context) {
     checkCurrentUser();
 
-    return Column(
+    return SafeArea(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -47,7 +47,7 @@ class _LoginBoxState extends State<LoginBox> {
               color: Colors.black, fontSize: 30, fontFamily: 'Notable'),
         ),
         Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(12),
             child: TextField(
               controller: emailController,
               decoration: const InputDecoration(
@@ -56,7 +56,7 @@ class _LoginBoxState extends State<LoginBox> {
               ),
             )),
         Padding(
-          padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+          padding: const EdgeInsets.only(right: 12, left: 12, bottom: 12),
           child: TextField(
               obscureText: true,
               controller: passwordController,
@@ -82,7 +82,7 @@ class _LoginBoxState extends State<LoginBox> {
               style: TextStyle(color: Colors.white),
             ))
       ],
-    );
+    ));
   }
 
   Future<void> login() async {

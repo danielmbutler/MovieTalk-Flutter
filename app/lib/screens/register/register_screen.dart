@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         )
                       : Column(children: [
                     Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(12),
                         child: TextField(
                           controller: emailController,
                           decoration: const InputDecoration(
@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         )),
                     Padding(
                       padding:
-                      const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+                      const EdgeInsets.only(right: 12, left: 12, bottom: 12),
                       child: TextField(
                           controller: passwordController,
                           obscureText: true,
