@@ -4,12 +4,12 @@
 * List View
 * Movie Detail View
 * Realtime Chat Messaging
-* backend created with aws amplify
+* Backend created with aws amplify
 
 
 ## Demo
 <p align="center">
-  <img src="https://github.com/danielmbutler/flutter-gamedeals/blob/main/assets/delete%20demo.gif" width="250" >
+  <img src="https://github.com/danielmbutler/MovieTalk-Flutter/blob/master/resources/movie%20talk%20demo%20complete.gif" width="250" >
 </p>
 
 ## Resources
