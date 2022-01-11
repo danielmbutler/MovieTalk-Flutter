@@ -3,7 +3,6 @@ import 'package:app/screens/shared/custom_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'widgets/login_box.dart';
-import 'widgets/server_status.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,8 +17,6 @@ class _LoginScreen extends State<LoginScreen> {
     return CustomScaffold(
             'MovieTalk',
             <Widget>[
-              ServerStatus(Amplify.isConfigured ? "online" : "offline",
-                  Amplify.isConfigured),
               Expanded(child: LoginBox())
             ],
             null,
