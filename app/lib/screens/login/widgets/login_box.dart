@@ -110,8 +110,7 @@ class _LoginBoxState extends State<LoginBox> {
 
     Stream<QuerySnapshot<Movie>> movies = movieViewModel.observeMovies();
 
-    if (movies != null) {
-      Navigator.push(context, MaterialPageRoute<void>(
+    Navigator.push(context, MaterialPageRoute<void>(
         builder: (BuildContext context) {
           return  ChangeNotifierProvider(
             create: (_) => MessageListViewModel(),
@@ -119,8 +118,6 @@ class _LoginBoxState extends State<LoginBox> {
           );
         },
       ));
-    }
-    ViewUtils.showSnackBar(context, "server error");
   }
 
   void register() {

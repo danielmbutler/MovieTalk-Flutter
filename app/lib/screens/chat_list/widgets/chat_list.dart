@@ -28,7 +28,6 @@ class _ChatListState extends State<ChatList> {
   Widget build(BuildContext context) {
 
     widget.movieQuery.listen((event) {
-      debugPrint("items" + event.items.toString());
       setState(() {
         widget.movies = event.items;
       });
