@@ -14,5 +14,4 @@
 
 ## Resources
 * [Amplify in Flutter](https://docs.amplify.aws/lib/q/platform/flutter/)
-* [MVVM Flutter News App](https://www.youtube.com/watch?v=7n2QprcdHMA)
 
