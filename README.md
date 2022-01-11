@@ -14,4 +14,6 @@
 
 ## Resources
 * [Amplify in Flutter](https://docs.amplify.aws/lib/q/platform/flutter/)
+* [Movie API](https://developers.themoviedb.org/3/movies/get-movie-details)
+
 
